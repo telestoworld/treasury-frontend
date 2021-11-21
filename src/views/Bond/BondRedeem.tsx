@@ -21,8 +21,8 @@ function BondRedeem({ bond }: IBondRedeem) {
 
     const isBondLoading = useSelector<IReduxState, boolean>(state => state.bonding.loading ?? true);
 
-    const currentBlockTime = useSelector<IReduxState, number>(state => {
-        return state.app.currentBlockTime;
+    const currentBlockTelesto = useSelector<IReduxState, number>(state => {
+        return state.app.currentBlockTelesto;
     });
 
     const pendingTransactions = useSelector<IReduxState, IPendingTxn[]>(state => {
@@ -48,11 +48,11 @@ function BondRedeem({ bond }: IBondRedeem) {
         await dispatch(redeemBond({ address, bond, networkID: chainID, provider, autostake }));
     }
 
-    const vestingTime = () => {
+    const vestingTelesto = () => {
         if (!bondDetails) {
             return "";
         }
-        return prettyVestingPeriod(currentBlockTime, bondDetails.bondMaturationBlock);
+        return prettyVestingPeriod(currentBlockTelesto, bondDetails.bondMaturationBlock);
     };
 
     const vestingPeriod = () => {
@@ -86,15 +86,15 @@ function BondRedeem({ bond }: IBondRedeem) {
                 <Box className="bond-data">
                     <div className="data-row">
                         <p className="bond-balance-title">Pending Rewards</p>
-                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.interestDue, 4)} TIME`}</p>
+                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.interestDue, 4)} TELESTO`}</p>
                     </div>
                     <div className="data-row">
                         <p className="bond-balance-title">Claimable Rewards</p>
-                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.pendingPayout, 4)} TIME`}</p>
+                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : `${trim(bond.pendingPayout, 4)} TELESTO`}</p>
                     </div>
                     <div className="data-row">
-                        <p className="bond-balance-title">Time until fully vested</p>
-                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : vestingTime()}</p>
+                        <p className="bond-balance-title">Telesto until fully vested</p>
+                        <p className="price-data bond-balance-title">{isBondLoading ? <Skeleton width="100px" /> : vestingTelesto()}</p>
                     </div>
 
                     <div className="data-row">

@@ -29,7 +29,7 @@ const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async ()
     }
 };
 
-function TimeMenu() {
+function TelestoMenu() {
     const [anchorEl, setAnchorEl] = useState(null);
     const isEthereumAPIAvailable = window.ethereum;
 
@@ -39,8 +39,8 @@ function TimeMenu() {
 
     const addresses = getAddresses(networkID);
 
-    const MEMO_ADDRESS = addresses.MEMO_ADDRESS;
-    const TIME_ADDRESS = addresses.TIME_ADDRESS;
+    const STAKED_TELESTO_ADDRESS = addresses.STAKED_TELESTO_ADDRESS;
+    const TELESTO_ADDRESS = addresses.TELESTO_ADDRESS;
 
     const handleClick = (event: any) => {
         setAnchorEl(anchorEl ? null : event.currentTarget);
@@ -51,14 +51,14 @@ function TimeMenu() {
     return (
         <div className="time-menu-root" onMouseEnter={e => handleClick(e)} onMouseLeave={e => handleClick(e)}>
             <div className="time-menu-btn">
-                <p>TIME</p>
+                <p>TELESTO</p>
             </div>
 
             <Popper className="time-menu-popper" open={open} anchorEl={anchorEl} transition>
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={200}>
                         <div className="tooltip">
-                            <Link className="tooltip-item" href={`https://www.traderjoexyz.com/#/trade?inputCurrency=&outputCurrency=${TIME_ADDRESS}`} target="_blank">
+                            <Link className="tooltip-item" href={`https://www.traderjoexyz.com/#/trade?inputCurrency=&outputCurrency=${TELESTO_ADDRESS}`} target="_blank">
                                 <p>Buy on Trader Joe</p>
                             </Link>
 
@@ -67,11 +67,11 @@ function TimeMenu() {
                                     <div className="divider" />
                                     <p className="add-tokens-title">ADD TOKEN TO WALLET</p>
                                     <div className="divider" />
-                                    <div className="tooltip-item" onClick={addTokenToWallet("TIME", TIME_ADDRESS)}>
-                                        <p>TIME</p>
+                                    <div className="tooltip-item" onClick={addTokenToWallet("TELESTO", TELESTO_ADDRESS)}>
+                                        <p>TELESTO</p>
                                     </div>
-                                    <div className="tooltip-item" onClick={addTokenToWallet("MEMO", MEMO_ADDRESS)}>
-                                        <p>MEMO</p>
+                                    <div className="tooltip-item" onClick={addTokenToWallet("STAKED_TELESTO", STAKED_TELESTO_ADDRESS)}>
+                                        <p>STAKED_TELESTO</p>
                                     </div>
                                 </div>
                             )}
@@ -83,4 +83,4 @@ function TimeMenu() {
     );
 }
 
-export default TimeMenu;
+export default TelestoMenu;

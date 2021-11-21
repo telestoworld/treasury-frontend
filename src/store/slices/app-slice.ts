@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { StakingContract, MemoTokenContract, TimeTokenContract } from "../../abi";
+import { StakingContract, MemoTokenContract, TelestoTokenContract } from "../../abi";
 import { setAll } from "../../helpers";
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
 import { JsonRpcProvider } from "@ethersproject/providers";
@@ -25,9 +25,9 @@ export const loadAppDetails = createAsyncThunk(
 
         const stakingContract = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, provider);
         const currentBlock = await provider.getBlockNumber();
-        const currentBlockTime = (await provider.getBlock(currentBlock)).timestamp;
-        const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
-        const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, provider);
+        const currentBlockTelesto = (await provider.getBlock(currentBlock)).timestamp;
+        const memoContract = new ethers.Contract(addresses.STAKED_TELESTO_ADDRESS, MemoTokenContract, provider);
+        const timeContract = new ethers.Contract(addresses.TELESTO_ADDRESS, TelestoTokenContract, provider);
 
         const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * mimPrice;
 
@@ -45,7 +45,7 @@ export const loadAppDetails = createAsyncThunk(
         const tokenAmounts = await Promise.all(tokenAmountsPromises);
         const rfvTreasury = tokenAmounts.reduce((tokenAmount0, tokenAmount1) => tokenAmount0 + tokenAmount1, ohmAmount);
 
-        const timeBondsAmountsPromises = allBonds.map(bond => bond.getTimeAmount(networkID, provider));
+        const timeBondsAmountsPromises = allBonds.map(bond => bond.getTelestoAmount(networkID, provider));
         const timeBondsAmounts = await Promise.all(timeBondsAmountsPromises);
         const timeAmount = timeBondsAmounts.reduce((timeAmount0, timeAmount1) => timeAmount0 + timeAmount1, 0);
         const timeSupply = totalSupply - timeAmount;
@@ -60,7 +60,7 @@ export const loadAppDetails = createAsyncThunk(
         const stakingAPY = Math.pow(1 + stakingRebase, 365 * 3) - 1;
 
         const currentIndex = await stakingContract.index();
-        const nextRebase = epoch.endTime;
+        const nextRebase = epoch.endTelesto;
 
         const treasuryRunway = rfvTreasury / circSupply;
         const runway = Math.log(treasuryRunway) / Math.log(1 + stakingRebase) / 3;
@@ -77,7 +77,7 @@ export const loadAppDetails = createAsyncThunk(
             stakingTVL,
             stakingRebase,
             marketPrice,
-            currentBlockTime,
+            currentBlockTelesto,
             nextRebase,
             rfv,
             runway,
@@ -97,7 +97,7 @@ export interface IAppSlice {
     circSupply: number;
     currentIndex: string;
     currentBlock: number;
-    currentBlockTime: number;
+    currentBlockTelesto: number;
     fiveDayRate: number;
     treasuryBalance: number;
     stakingAPY: number;

@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { TimeTokenContract, MemoTokenContract, MimTokenContract } from "../../abi";
+import { TelestoTokenContract, MemoTokenContract, MimTokenContract } from "../../abi";
 import { setAll } from "../../helpers";
 
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
@@ -27,9 +27,9 @@ interface IAccountBalances {
 export const getBalances = createAsyncThunk("account/getBalances", async ({ address, networkID, provider }: IGetBalances): Promise<IAccountBalances> => {
     const addresses = getAddresses(networkID);
 
-    const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
+    const memoContract = new ethers.Contract(addresses.STAKED_TELESTO_ADDRESS, MemoTokenContract, provider);
     const memoBalance = await memoContract.balanceOf(address);
-    const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, provider);
+    const timeContract = new ethers.Contract(addresses.TELESTO_ADDRESS, TelestoTokenContract, provider);
     const timeBalance = await timeContract.balanceOf(address);
 
     return {
@@ -65,14 +65,14 @@ export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails",
 
     const addresses = getAddresses(networkID);
 
-    if (addresses.TIME_ADDRESS) {
-        const timeContract = new ethers.Contract(addresses.TIME_ADDRESS, TimeTokenContract, provider);
+    if (addresses.TELESTO_ADDRESS) {
+        const timeContract = new ethers.Contract(addresses.TELESTO_ADDRESS, TelestoTokenContract, provider);
         timeBalance = await timeContract.balanceOf(address);
         stakeAllowance = await timeContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
     }
 
-    if (addresses.MEMO_ADDRESS) {
-        const memoContract = new ethers.Contract(addresses.MEMO_ADDRESS, MemoTokenContract, provider);
+    if (addresses.STAKED_TELESTO_ADDRESS) {
+        const memoContract = new ethers.Contract(addresses.STAKED_TELESTO_ADDRESS, MemoTokenContract, provider);
         memoBalance = await memoContract.balanceOf(address);
         unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
     }
@@ -130,7 +130,7 @@ export const calculateUserBondDetails = createAsyncThunk("account/calculateUserB
 
     const bondDetails = await bondContract.bondInfo(address);
     interestDue = bondDetails.payout / Math.pow(10, 9);
-    bondMaturationBlock = Number(bondDetails.vesting) + Number(bondDetails.lastTime);
+    bondMaturationBlock = Number(bondDetails.vesting) + Number(bondDetails.lastTelesto);
     pendingPayout = await bondContract.pendingPayoutFor(address);
 
     let allowance,

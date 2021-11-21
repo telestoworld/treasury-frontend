@@ -2,14 +2,14 @@
     "abi": [{
         "inputs": [{
             "internalType": "address",
-            "name": "_Time",
+            "name": "_Telesto",
             "type": "address"
         }],
         "stateMutability": "nonpayable",
         "type": "constructor"
     }, {
         "inputs": [],
-        "name": "Time",
+        "name": "Telesto",
         "outputs": [{
             "internalType": "address",
             "name": "",

@@ -1,5 +1,5 @@
-import TimeImg from "../assets/tokens/TIME.svg";
-import MemoImg from "../assets/tokens/MEMO.png";
+import TelestoImg from "../assets/tokens/TELESTO.svg";
+import MemoImg from "../assets/tokens/STAKED_TELESTO.png";
 
 function toUrl(tokenPath: string): string {
     const host = window.location.origin;
@@ -8,7 +8,7 @@ function toUrl(tokenPath: string): string {
 
 export function getTokenUrl(name: string) {
     if (name === "time") {
-        return toUrl(TimeImg);
+        return toUrl(TelestoImg);
     }
 
     if (name === "memo") {

@@ -4,8 +4,8 @@ import { StableBond, CustomBond } from "./stable-bond";
 
 import MimIcon from "../../assets/tokens/MIM.svg";
 import AvaxIcon from "../../assets/tokens/AVAX.svg";
-import MimTimeIcon from "../../assets/tokens/TIME-MIM.svg";
-import AvaxTimeIcon from "../../assets/tokens/TIME-AVAX.svg";
+import MimTelestoIcon from "../../assets/tokens/TELESTO-MIM.svg";
+import AvaxTelestoIcon from "../../assets/tokens/TELESTO-AVAX.svg";
 
 import { StableBondContract, LpBondContract, WavaxBondContract, StableReserveContract, LpReserveContract } from "../../abi";
 
@@ -39,11 +39,11 @@ export const wavax = new CustomBond({
     },
 });
 
-export const mimTime = new LPBond({
+export const mimTelesto = new LPBond({
     name: "mim_time_lp",
-    displayName: "TIME-MIM LP",
+    displayName: "TELESTO-MIM LP",
     bondToken: "MIM",
-    bondIconSvg: MimTimeIcon,
+    bondIconSvg: MimTelestoIcon,
     bondContractABI: LpBondContract,
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
@@ -55,11 +55,11 @@ export const mimTime = new LPBond({
     lpUrl: "https://www.traderjoexyz.com/#/pool/0x130966628846BFd36ff31a822705796e8cb8C18D/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
 });
 
-export const avaxTime = new CustomLPBond({
+export const avaxTelesto = new CustomLPBond({
     name: "avax_time_lp",
-    displayName: "TIME-AVAX LP",
+    displayName: "TELESTO-AVAX LP",
     bondToken: "AVAX",
-    bondIconSvg: AvaxTimeIcon,
+    bondIconSvg: AvaxTelestoIcon,
     bondContractABI: LpBondContract,
     reserveContractAbi: LpReserveContract,
     networkAddrs: {
@@ -71,4 +71,4 @@ export const avaxTime = new CustomLPBond({
     lpUrl: "https://www.traderjoexyz.com/#/pool/AVAX/0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
 });
 
-export default [mim, wavax, mimTime, avaxTime];
+export default [mim, wavax, mimTelesto, avaxTelesto];
