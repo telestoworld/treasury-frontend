@@ -14,6 +14,7 @@
     ]
   },
   "dependencies": {
+    "@celo-tools/celo-ethers-wrapper": "^0.1.0",
     "@ethersproject/providers": "^5.0.12",
     "@material-ui/core": "^4.11.4",
     "@material-ui/icons": "^4.11.2",
