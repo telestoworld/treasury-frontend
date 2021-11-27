@@ -12,13 +12,13 @@ const addChainRequest = () => {
         method: "wallet_addEthereumChain",
         params: [
             {
-                chainId: "0xa86a",
-                chainName: "Avalanche Mainnet",
-                rpcUrls: ["https://api.avax.network/ext/bc/C/rpc"],
-                blockExplorerUrls: ["https://cchain.explorer.avax.network/"],
+                chainId: "42220",
+                chainName: "Celo Mainnet",
+                rpcUrls: ["https://forno.celo.org."],
+                blockExplorerUrls: ["https://explorer.celo.org/"],
                 nativeCurrency: {
-                    name: "AVAX",
-                    symbol: "AVAX",
+                    name: "CELO",
+                    symbol: "CELO",
                     decimals: 18,
                 },
             },

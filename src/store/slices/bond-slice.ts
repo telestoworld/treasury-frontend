@@ -10,7 +10,7 @@ import { Bond } from "../../helpers/bond/bond";
 import { Networks } from "../../constants/blockchain";
 import { getBondCalculator } from "../../helpers/bond-calculator";
 import { RootState } from "../store";
-import { avaxTelesto, wavax } from "../../helpers/bond";
+import { TELOTelesto, wTELO } from "../../helpers/bond";
 import { error, warning, success, info } from "../slices/messages-slice";
 import { messages } from "../../constants/messages";
 import { getGasPrice } from "../../helpers/get-gas-price";
@@ -119,9 +119,9 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
     try {
         bondPrice = await bondContract.bondPriceInUSD();
 
-        if (bond.name === avaxTelesto.name) {
-            const avaxPrice = getTokenPrice("AVAX");
-            bondPrice = bondPrice * avaxPrice;
+        if (bond.name === TELOTelesto.name) {
+            const TELOPrice = getTokenPrice("TELO");
+            bondPrice = bondPrice * TELOPrice;
         }
 
         bondDiscount = (marketPrice * Math.pow(10, 18) - bondPrice) / bondPrice;
@@ -163,14 +163,14 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
         purchased = await bondCalcContract.valuation(assetAddress, purchased);
         purchased = (markdown / Math.pow(10, 18)) * (purchased / Math.pow(10, 9));
 
-        if (bond.name === avaxTelesto.name) {
-            const avaxPrice = getTokenPrice("AVAX");
-            purchased = purchased * avaxPrice;
+        if (bond.name === TELOTelesto.name) {
+            const TELOPrice = getTokenPrice("TELO");
+            purchased = purchased * TELOPrice;
         }
-    } else if (bond.name === wavax.name) {
+    } else if (bond.name === wTELO.name) {
         purchased = purchased / Math.pow(10, 18);
-        const avaxPrice = getTokenPrice("AVAX");
-        purchased = purchased * avaxPrice;
+        const TELOPrice = getTokenPrice("TELO");
+        purchased = purchased * TELOPrice;
     } else {
         purchased = purchased / Math.pow(10, 18);
     }
@@ -195,9 +195,9 @@ interface IBondAsset {
     networkID: Networks;
     provider: StaticJsonRpcProvider | JsonRpcProvider;
     slippage: number;
-    useAvax: boolean;
+    useTELO: boolean;
 }
-export const bondAsset = createAsyncThunk("bonding/bondAsset", async ({ value, address, bond, networkID, provider, slippage, useAvax }: IBondAsset, { dispatch }) => {
+export const bondAsset = createAsyncThunk("bonding/bondAsset", async ({ value, address, bond, networkID, provider, slippage, useTELO }: IBondAsset, { dispatch }) => {
     const depositorAddress = address;
     const acceptedSlippage = slippage / 100 || 0.005;
     const valueInWei = ethers.utils.parseUnits(value, "ether");
@@ -211,7 +211,7 @@ export const bondAsset = createAsyncThunk("bonding/bondAsset", async ({ value, a
     try {
         const gasPrice = await getGasPrice(provider);
 
-        if (useAvax) {
+        if (useTELO) {
             bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { value: valueInWei, gasPrice });
         } else {
             bondTx = await bondContract.deposit(valueInWei, maxPremium, depositorAddress, { gasPrice });

@@ -9,7 +9,7 @@ import { BigNumber } from "ethers";
 export const zapinLpData = async (bond: IAllBondData, token: IToken, tokenAmmount: string, network: Networks, slippage: number) => {
     const addresses = getAddresses(network);
 
-    const sellToken = token.isAvax ? ethers.constants.AddressZero : token.address;
+    const sellToken = token.isTELO ? ethers.constants.AddressZero : token.address;
     const buyToken = bond.getAddressForReserve(network);
 
     const url = `https://api.zapper.fi/v1/zap-in/pool/traderjoe/transaction?gasPrice=1000000000000&ownerAddress=${addresses.ZAPIN_ADDRESS}&sellAmount=${tokenAmmount}&sellTokenAddress=${sellToken}&poolAddress=${buyToken}&slippagePercentage=${slippage}&network=avalanche&api_key=96e0cc51-a62e-42ca-acee-910ea7d2a241&skipGasEstimate=true`;
@@ -24,7 +24,7 @@ export const zapinLpData = async (bond: IAllBondData, token: IToken, tokenAmmoun
 };
 
 export const zapinData = async (bond: IAllBondData, token: IToken, tokenAmmount: string, network: Networks, slippage: number) => {
-    const sellToken = token.isAvax ? "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" : token.address;
+    const sellToken = token.isTELO ? "0xeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee" : token.address;
     const buyToken = bond.getAddressForReserve(network);
 
     const url = `https://avalanche.api.0x.org/swap/v1/quote?buyToken=${buyToken}&includePriceComparisons=true&intentOnFilling=true&sellAmount=${tokenAmmount}&sellToken=${sellToken}&skipValidation=true&slippagePercentage=${slippage}`;

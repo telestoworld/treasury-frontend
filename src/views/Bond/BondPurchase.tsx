@@ -24,7 +24,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
     const { provider, address, chainID, checkWrongNetwork } = useWeb3Context();
 
     const [quantity, setQuantity] = useState("");
-    const [useAvax, setUseAvax] = useState(false);
+    const [useTELO, setUseTELO] = useState(false);
 
     const isBondLoading = useSelector<IReduxState, boolean>(state => state.bonding.loading ?? true);
     const [zapinOpen, setZapinOpen] = useState(false);
@@ -58,7 +58,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                         networkID: chainID,
                         provider,
                         address: recipientAddress || address,
-                        useAvax,
+                        useTELO,
                     }),
                 );
                 clearInput();
@@ -74,7 +74,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                     networkID: chainID,
                     provider,
                     address: recipientAddress || address,
-                    useAvax,
+                    useTELO,
                 }),
             );
             clearInput();
@@ -90,7 +90,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
     }, [bond.allowance]);
 
     const setMax = () => {
-        let amount: any = Math.min(bond.maxBondPriceToken * 0.9999, useAvax ? bond.avaxBalance * 0.99 : bond.balance);
+        let amount: any = Math.min(bond.maxBondPriceToken * 0.9999, useTELO ? bond.TELOBalance * 0.99 : bond.balance);
 
         if (amount) {
             amount = trim(amount);
@@ -121,16 +121,16 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
         setZapinOpen(false);
     };
 
-    const displayUnits = useAvax ? "AVAX" : bond.displayUnits;
+    const displayUnits = useTELO ? "TELO" : bond.displayUnits;
 
     return (
         <Box display="flex" flexDirection="column">
             <Box display="flex" justifyContent="space-around" flexWrap="wrap">
-                {bond.name === "wavax" && (
+                {bond.name === "wTELO" && (
                     <FormControl className="ohm-input" variant="outlined" color="primary" fullWidth>
-                        <div className="avax-checkbox">
-                            <input type="checkbox" checked={useAvax} onClick={() => setUseAvax(!useAvax)} />
-                            <p>Use AVAX</p>
+                        <div className="TELO-checkbox">
+                            <input type="checkbox" checked={useTELO} onClick={() => setUseTELO(!useTELO)} />
+                            <p>Use TELO</p>
                         </div>
                     </FormControl>
                 )}
@@ -151,7 +151,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                         }
                     />
                 </FormControl>
-                {hasAllowance() || useAvax ? (
+                {hasAllowance() || useTELO ? (
                     <div
                         className="transaction-button bond-approve-btn"
                         onClick={async () => {
@@ -177,7 +177,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                     <p>Zap</p>
                 </div>
 
-                {!hasAllowance() && !useAvax && (
+                {!hasAllowance() && !useTELO && (
                     <div className="help-text">
                         <p className="help-text-desc">
                             Note: The "Approve" transaction is only needed when minting for the first time; subsequent minting only requires you to perform the "Mint" transaction.
@@ -195,7 +195,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                                 <Skeleton width="100px" />
                             ) : (
                                 <>
-                                    {trim(useAvax ? bond.avaxBalance : bond.balance, 4)} {displayUnits}
+                                    {trim(useTELO ? bond.TELOBalance : bond.balance, 4)} {displayUnits}
                                 </>
                             )}
                         </p>

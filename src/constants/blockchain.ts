@@ -1,7 +1,7 @@
 export const TOKEN_DECIMALS = 9;
 
 export enum Networks {
-    AVAX = 43114,
+    CELO = 42220,
 }
 
-export const DEFAULD_NETWORK = Networks.AVAX;
+export const DEFAULD_NETWORK = Networks.CELO;

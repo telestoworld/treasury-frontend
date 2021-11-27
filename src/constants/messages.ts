@@ -1,5 +1,5 @@
 export const messages = {
-    please_connect: "Please connect your wallet to the Avalanche network to use Wonderland.",
+    please_connect: "Please connect your wallet to the CELO network to use Telesto.",
     please_connect_wallet: "Please connect your wallet.",
     try_mint_more: (value: string) => `You're trying to mint more than the maximum payout available! The maximum mint payout is ${value} TELESTO.`,
     before_minting: "Before minting, enter a value.",
@@ -11,7 +11,7 @@ export const messages = {
     your_balance_updated: "Your balance was successfully updated",
     nothing_to_claim: "You have nothing to claim",
     something_wrong: "Something went wrong",
-    switch_to_avalanche: "Switch to the Avalanche network?",
+    switch_to_avalanche: "Switch to the CELO network?",
     slippage_too_small: "Slippage too small",
     slippage_too_big: "Slippage too big",
     your_balance_update_soon: "Your balance will update soon",

@@ -99,7 +99,7 @@ interface ICalcUserBondDetails {
 export interface IUserBondDetails {
     allowance: number;
     balance: number;
-    avaxBalance: number;
+    TELOBalance: number;
     interestDue: number;
     bondMaturationBlock: number;
     pendingPayout: number; //Payout formatted in gwei.
@@ -118,7 +118,7 @@ export const calculateUserBondDetails = createAsyncThunk("account/calculateUserB
                 interestDue: 0,
                 bondMaturationBlock: 0,
                 pendingPayout: "",
-                avaxBalance: 0,
+                TELOBalance: 0,
             });
         });
     }
@@ -140,8 +140,8 @@ export const calculateUserBondDetails = createAsyncThunk("account/calculateUserB
     balance = await reserveContract.balanceOf(address);
     const balanceVal = ethers.utils.formatEther(balance);
 
-    const avaxBalance = await provider.getSigner().getBalance();
-    const avaxVal = ethers.utils.formatEther(avaxBalance);
+    const TELOBalance = await provider.getSigner().getBalance();
+    const TELOVal = ethers.utils.formatEther(TELOBalance);
 
     const pendingPayoutVal = ethers.utils.formatUnits(pendingPayout, "gwei");
 
@@ -152,7 +152,7 @@ export const calculateUserBondDetails = createAsyncThunk("account/calculateUserB
         isLP: bond.isLP,
         allowance: Number(allowance),
         balance: Number(balanceVal),
-        avaxBalance: Number(avaxVal),
+        TELOBalance: Number(TELOVal),
         interestDue,
         bondMaturationBlock,
         pendingPayout: Number(pendingPayoutVal),
@@ -169,7 +169,7 @@ interface ICalcUserTokenDetails {
 export interface IUserTokenDetails {
     allowance: number;
     balance: number;
-    isAvax?: boolean;
+    isTELO?: boolean;
 }
 
 export const calculateUserTokenDetails = createAsyncThunk("account/calculateUserTokenDetails", async ({ address, token, networkID, provider }: ICalcUserTokenDetails) => {
@@ -185,15 +185,15 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
         });
     }
 
-    if (token.isAvax) {
-        const avaxBalance = await provider.getSigner().getBalance();
-        const avaxVal = ethers.utils.formatEther(avaxBalance);
+    if (token.isTELO) {
+        const TELOBalance = await provider.getSigner().getBalance();
+        const TELOVal = ethers.utils.formatEther(TELOBalance);
 
         return {
             token: token.name,
             tokenIcon: token.img,
-            balance: Number(avaxVal),
-            isAvax: true,
+            balance: Number(TELOVal),
+            isTELO: true,
         };
     }
 
