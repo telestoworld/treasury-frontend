@@ -2,7 +2,7 @@
     "abi": [{
             "inputs": [{
                     "internalType": "address",
-                    "name": "_OHM",
+                    "name": "_TELO",
                     "type": "address"
                 },
                 {
@@ -186,7 +186,7 @@
         },
         {
             "inputs": [],
-            "name": "OHM",
+            "name": "TELO",
             "outputs": [{
                 "internalType": "address",
                 "name": "",
