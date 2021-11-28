@@ -6,6 +6,7 @@ import { Web3ContextProvider } from "./hooks";
 import { SnackbarProvider } from "notistack";
 import SnackMessage from "./components/Messages/snackbar";
 
+
 ReactDOM.render(
     <SnackbarProvider
         maxSnack={4}
@@ -17,9 +18,11 @@ ReactDOM.render(
         autoHideDuration={10000}
     >
         <Provider store={store}>
+            
             <Web3ContextProvider>
                 <Root />
             </Web3ContextProvider>
+            
         </Provider>
     </SnackbarProvider>,
     document.getElementById("root"),

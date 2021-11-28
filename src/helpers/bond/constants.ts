@@ -11,5 +11,5 @@ export interface BondAddresses {
 }
 
 export interface NetworkAddresses {
-    [Networks.TELO]: BondAddresses;
+    [Networks.CELO]: BondAddresses;
 }
