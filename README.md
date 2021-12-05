@@ -1,5 +1,5 @@
 # [Telesto Frontend](https://app.wonderland.money/)
-This is the front-end repo for Wonderland. 
+This is the front-end repo for Telesto. 
 
 ##  🔧 Setting up Local Development
 

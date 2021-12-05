@@ -1,8 +1,8 @@
 {
-  "short_name": "Wonderland",
+  "short_name": "Telesto",
   "start_url": ".",
   "homepage": "./",
-  "name": "Wonderland",
+  "name": "Telesto",
   "launch_path": "/public/index.html",
   "icons": [
     {
