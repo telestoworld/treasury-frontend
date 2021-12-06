@@ -58,8 +58,8 @@ function TelestoMenu() {
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={200}>
                         <div className="tooltip">
-                            <Link className="tooltip-item" href={`https://www.traderjoexyz.com/#/trade?inputCurrency=&outputCurrency=${TELESTO_ADDRESS}`} target="_blank">
-                                <p>Buy on Trader Joe</p>
+                            <Link className="tooltip-item" href={`https://www.ubeswap.org/#/trade?inputCurrency=&outputCurrency=${TELESTO_ADDRESS}`} target="_blank">
+                                <p>Buy on Ube Swap</p>
                             </Link>
 
                             {isEthereumAPIAvailable && (
@@ -67,11 +67,11 @@ function TelestoMenu() {
                                     <div className="divider" />
                                     <p className="add-tokens-title">ADD TOKEN TO WALLET</p>
                                     <div className="divider" />
-                                    <div className="tooltip-item" onClick={addTokenToWallet("TELESTO", TELESTO_ADDRESS)}>
-                                        <p>TELESTO</p>
+                                    <div className="tooltip-item" onClick={addTokenToWallet("Telo", TELESTO_ADDRESS)}>
+                                        <p>Telo</p>
                                     </div>
-                                    <div className="tooltip-item" onClick={addTokenToWallet("STAKED_TELESTO", STAKED_TELESTO_ADDRESS)}>
-                                        <p>STAKED_TELESTO</p>
+                                    <div className="tooltip-item" onClick={addTokenToWallet("sTelo", STAKED_TELESTO_ADDRESS)}>
+                                        <p>sTelo</p>
                                     </div>
                                 </div>
                             )}

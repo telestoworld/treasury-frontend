@@ -9,8 +9,8 @@ import { Skeleton } from "@material-ui/lab";
 import useTokens, { IAllTokenData } from "../../../../hooks/tokens";
 import { trim } from "../../../../helpers";
 import { IAllBondData } from "../../../../hooks/bonds";
-import { mim, wTELO } from "../../../../helpers/bond";
-import { mim as mimToken, wTELO as wTELOToken } from "../../../../helpers/tokens";
+import { cEuro, wTELO } from "../../../../helpers/bond";
+import { mim as ceurToken, wTELO as wTELOToken } from "../../../../helpers/tokens";
 
 interface IChooseTokenProps {
     open: boolean;
@@ -39,8 +39,8 @@ function ChooseToken({ open, handleClose, handleSelect, bond }: IChooseTokenProp
 
         let lpFilter = true;
 
-        if (bond.name === mim.name) {
-            lpFilter = mimToken.address !== address;
+        if (bond.name === cEuro.name) {
+            lpFilter = ceurToken.address !== address;
         }
 
         if (bond.name === wTELO.name) {

@@ -50,7 +50,7 @@ export abstract class Bond {
 
     public getContractForBond(networkID: Networks, provider: StaticJsonRpcProvider | JsonRpcSigner) {
         const bondAddress = this.getAddressForBond(networkID);
-        return new Contract(bondAddress, this.bondContractABI, provider);
+        return new Contract(bondAddress, this.bondContractABI, provider as any);
     }
 
     public getAddressForReserve(networkID: Networks) {
@@ -59,7 +59,7 @@ export abstract class Bond {
 
     public getContractForReserve(networkID: Networks, provider: StaticJsonRpcProvider | JsonRpcSigner) {
         const reserveAddress = this.getAddressForReserve(networkID);
-        return new Contract(reserveAddress, this.reserveContractAbi, provider);
+        return new Contract(reserveAddress, this.reserveContractAbi, provider as any);
     }
 
     protected getTokenPrice(): number {

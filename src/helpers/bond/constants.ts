@@ -12,4 +12,5 @@ export interface BondAddresses {
 
 export interface NetworkAddresses {
     [Networks.CELO]: BondAddresses;
+    [Networks.CELO_ALFAJORES]: BondAddresses;
 }

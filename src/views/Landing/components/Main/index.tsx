@@ -15,7 +15,7 @@ function Main() {
                         <p>Enter Treasury</p>
                     </div>
                 </Link>
-                <Link href="https://wonderland.gitbook.io/wonderland/" target="_blank" rel="noreferrer">
+                <Link href="https://telesto.gitbook.io/telesto/" target="_blank" rel="noreferrer">
                     <div className="landing-main-btn">
                         <p>Documentation</p>
                     </div>

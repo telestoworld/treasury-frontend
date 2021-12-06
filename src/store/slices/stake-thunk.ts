@@ -27,8 +27,8 @@ export const changeApproval = createAsyncThunk("stake/changeApproval", async ({ 
     const addresses = getAddresses(networkID);
 
     const signer = provider.getSigner();
-    const timeContract = new ethers.Contract(addresses.TELESTO_ADDRESS, TelestoTokenContract, signer);
-    const memoContract = new ethers.Contract(addresses.STAKED_TELESTO_ADDRESS, MemoTokenContract, signer);
+    const timeContract = new ethers.Contract(addresses.TELESTO_ADDRESS, TelestoTokenContract, signer as any);
+    const memoContract = new ethers.Contract(addresses.STAKED_TELESTO_ADDRESS, MemoTokenContract, signer as any);
 
     let approveTx;
     try {
@@ -86,8 +86,8 @@ export const changeStake = createAsyncThunk("stake/changeStake", async ({ action
     }
     const addresses = getAddresses(networkID);
     const signer = provider.getSigner();
-    const staking = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, signer);
-    const stakingHelper = new ethers.Contract(addresses.STAKING_HELPER_ADDRESS, StakingHelperContract, signer);
+    const staking = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, signer as any);
+    const stakingHelper = new ethers.Contract(addresses.STAKING_HELPER_ADDRESS, StakingHelperContract, signer as any);
 
     let stakeTx;
 

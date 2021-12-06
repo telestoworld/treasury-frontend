@@ -8,7 +8,7 @@ import { clearPendingTxn, fetchPendingTxns } from "./pending-txns-slice";
 import { metamaskErrorWrap } from "../../helpers/metamask-error-wrap";
 import { getGasPrice } from "../../helpers/get-gas-price";
 import { ethers } from "ethers";
-import { MimTokenContract, ZapinContract } from "../../abi";
+import { ceurTokenContract, ZapinContract } from "../../abi";
 import { calculateUserBondDetails, fetchAccountSuccess } from "./account-slice";
 import { IAllBondData } from "../../hooks/bonds";
 import { zapinData, zapinLpData } from "../../helpers/zapin-fetch-data";
@@ -31,7 +31,7 @@ export const changeApproval = createAsyncThunk("zapin/changeApproval", async ({ 
 
     const signer = provider.getSigner();
 
-    const tokenContract = new ethers.Contract(token.address, MimTokenContract, signer);
+    const tokenContract = new ethers.Contract(token.address, ceurTokenContract, signer as any);
 
     let approveTx;
     try {
@@ -162,12 +162,12 @@ export const zapinMint = createAsyncThunk(
         const depositorAddress = address;
 
         const signer = provider.getSigner();
-        const zapinContract = new ethers.Contract(addresses.ZAPIN_ADDRESS, ZapinContract, signer);
+        const zapinContract = new ethers.Contract(addresses.ZAPIN_ADDRESS, ZapinContract, signer as any);
 
         const bondAddress = bond.getAddressForBond(networkID);
         const valueInWei = trim(Number(value) * Math.pow(10, token.decimals));
 
-        const bondContract = bond.getContractForBond(networkID, signer);
+        const bondContract = bond.getContractForBond(networkID, signer as any);
 
         const calculatePremium = await bondContract.bondPrice();
         const maxPremium = Math.round(calculatePremium * (1 + acceptedSlippage));

@@ -1,4 +1,4 @@
-import TelestoImg from "../assets/tokens/TELESTO.svg";
+import TelestoImg from "../assets/tokens/TELESTO.png";
 import MemoImg from "../assets/tokens/STAKED_TELESTO.png";
 
 function toUrl(tokenPath: string): string {
@@ -7,11 +7,11 @@ function toUrl(tokenPath: string): string {
 }
 
 export function getTokenUrl(name: string) {
-    if (name === "time") {
+    if (name === "telo") {
         return toUrl(TelestoImg);
     }
 
-    if (name === "memo") {
+    if (name === "sTelo") {
         return toUrl(MemoImg);
     }
 

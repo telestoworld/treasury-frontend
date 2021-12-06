@@ -2,7 +2,7 @@ import React, { useState, ReactElement, useContext, useMemo, useCallback } from 
 import Web3Modal from "web3modal";
 import { StaticJsonRpcProvider, JsonRpcProvider, Web3Provider } from "@ethersproject/providers";
 import WalletConnectProvider from "@walletconnect/web3-provider";
-import { getMainnetURI } from "./helpers";
+import { getMainnetURI, getTestnetURI } from "./helpers";
 import { DEFAULT_NETWORK } from "../../constants";
 import { Networks } from "../../constants";
 import { messages } from "../../constants/messages";
@@ -53,7 +53,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
     const [providerChainID, setProviderChainID] = useState(DEFAULT_NETWORK);
     const [address, setAddress] = useState("");
 
-    const [uri, setUri] = useState(getMainnetURI());
+    const [uri, setUri] = useState(getTestnetURI());
     const [provider, setProvider] = useState<JsonRpcProvider>(new StaticJsonRpcProvider(uri));
 
     const [web3Modal] = useState<Web3Modal>(
@@ -65,6 +65,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
                     options: {
                         rpc: {
                             [Networks.CELO]: getMainnetURI(),
+                            [Networks.CELO_ALFAJORES]: getTestnetURI(),
                         },
                     },
                 },
@@ -118,7 +119,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
 
         setProviderChainID(chainId);
 
-        if (chainId === Networks.CELO) {
+        if (chainId === Networks.CELO||chainId===Networks.CELO_ALFAJORES) {
             setProvider(connectedProvider);
         }
 
@@ -129,7 +130,7 @@ export const Web3ContextProvider: React.FC<{ children: ReactElement }> = ({ chil
 
     const checkWrongNetwork = async (): Promise<boolean> => {
         if (providerChainID !== DEFAULT_NETWORK) {
-            const shouldSwitch = window.confirm(messages.switch_to_avalanche);
+            const shouldSwitch = window.confirm(messages.switch_to_testnet);
             if (shouldSwitch) {
                 await swithNetwork();
                 window.location.reload();

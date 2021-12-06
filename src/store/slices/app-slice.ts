@@ -23,13 +23,13 @@ export const loadAppDetails = createAsyncThunk(
         const ohmPrice = getTokenPrice("OHM");
         const ohmAmount = 1512.12854088 * ohmPrice;
 
-        const stakingContract = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, provider);
+        const stakingContract = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, provider as any);
         const currentBlock = await provider.getBlockNumber();
         const currentBlockTelesto = (await provider.getBlock(currentBlock)).timestamp;
-        const memoContract = new ethers.Contract(addresses.STAKED_TELESTO_ADDRESS, MemoTokenContract, provider);
-        const timeContract = new ethers.Contract(addresses.TELESTO_ADDRESS, TelestoTokenContract, provider);
+        const memoContract = new ethers.Contract(addresses.STAKED_TELESTO_ADDRESS, MemoTokenContract, provider as any);
+        const timeContract = new ethers.Contract(addresses.TELESTO_ADDRESS, TelestoTokenContract, provider as any);
 
-        const marketPrice = ((await getMarketPrice(networkID, provider)) / Math.pow(10, 9)) * mimPrice;
+        const marketPrice = ((await getMarketPrice(networkID, provider as any)) / Math.pow(10, 9)) * mimPrice;
 
         const totalSupply = (await timeContract.totalSupply()) / Math.pow(10, 9);
         const circSupply = (await memoContract.circulatingSupply()) / Math.pow(10, 9);
