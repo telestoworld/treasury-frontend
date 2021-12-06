@@ -73,6 +73,7 @@
   },
   "scripts": {
     "build": "GENERATE_SOURCEMAP=false react-scripts build",
+    "build-dos": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
     "eject": "react-scripts eject",
     "start": "react-scripts start",
     "update": "yarn add ethers --latest",
