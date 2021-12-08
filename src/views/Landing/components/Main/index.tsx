@@ -10,9 +10,9 @@ function Main() {
                 <img src={SplashImg} alt="" />
             </div>
             <div className="landing-main-btns-wrap">
-                <Link href="https://app.telesto.finance" target="_blank" rel="noreferrer">
+                <Link href="javascript:void(0)" rel="noreferrer">
                     <div className="landing-main-btn">
-                        <p>Enter Treasury</p>
+                        <p>Treasury (Coming Soon)</p>
                     </div>
                 </Link>
                 <Link href="https://telesto.gitbook.io/telesto/" target="_blank" rel="noreferrer">
@@ -22,10 +22,10 @@ function Main() {
                 </Link>
             </div>
             <div className="landing-main-title-wrap">
-                <p>Telesto Dao</p>
+                <p>Telesto DAO</p>
             </div>
             <div className="landing-main-help-text-wrap">
-                <p>A reserve currency for the metaverse</p>
+                <p>An eco friendly reserve currency for the metaverse</p>
                 <p>earning compounding interest</p>
             </div>
         </div>

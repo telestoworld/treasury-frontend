@@ -19,7 +19,7 @@ function Footer() {
     });
 
     const trimmedStakingAPY = trim(stakingAPY * 100, 1);
-
+    return <></>
     return (
         <div className="landing-footer">
             <Grid container spacing={1}>

@@ -7,19 +7,19 @@ import { ReactComponent as Discord } from "../../../assets/icons/discord.svg";
 export default function Social() {
     return (
         <div className="social-row">
-            <Link href="https://github.com/telestoworld" target="_blank">
+            {/* <Link href="https://github.com/telestoworld" target="_blank">
                 <SvgIcon color="primary" component={GitHub} />
-            </Link>
+            </Link> */}
 
-            <Link href="https://twitter.com/TelestoWorld" target="_blank">
+            <Link href="https://twitter.com/TelestoDao" target="_blank">
                 <SvgIcon color="primary" component={Twitter} />
             </Link>
 
-            <Link href="https://t.me/joinchat/6UybL5rJMEhjN2Y5" target="_blank">
+            {/* <Link href="https://t.me/joinchat/6UybL5rJMEhjN2Y5" target="_blank">
                 <SvgIcon viewBox="0 0 32 32" color="primary" component={Telegram} />
-            </Link>
+            </Link> */}
 
-            <Link href="https://discord.gg/thDHseaHUt" target="_blank">
+            <Link href="https://discord.gg/g5STyAkCGA" target="_blank">
                 <SvgIcon color="primary" component={Discord} />
             </Link>
         </div>

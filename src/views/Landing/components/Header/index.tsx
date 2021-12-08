@@ -63,15 +63,15 @@ function Header() {
                         {({ TransitionProps }) => (
                             <Fade {...TransitionProps} timeout={200}>
                                 <div className="tooltip">
-                                    <Link className="tooltip-item" href="https://github.com/telestoworld" target="_blank">
+                                    {/* <Link className="tooltip-item" href="https://github.com/telestoworld" target="_blank">
                                         <SvgIcon color="primary" component={GitHub} />
                                         <p>GitHub</p>
-                                    </Link>
-                                    <Link className="tooltip-item" href="https://twitter.com/telestoworld?s=21" target="_blank">
+                                    </Link> */}
+                                    <Link className="tooltip-item" href="https://twitter.com/telestodao?s=21" target="_blank">
                                         <SvgIcon color="primary" component={Twitter} />
                                         <p>Twitter</p>
                                     </Link>
-                                    <Link className="tooltip-item" href="https://discord.gg/thDHseaHUt" target="_blank">
+                                    <Link className="tooltip-item" href="https://discord.gg/telestodao" target="_blank">
                                         <SvgIcon color="primary" component={Discord} />
                                         <p>Discord</p>
                                     </Link>
