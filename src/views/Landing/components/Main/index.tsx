@@ -1,14 +1,46 @@
-import React from "react";
+import React, {Component} from "react";
 import { Link } from "@material-ui/core";
 import "./main.scss";
-import SplashImg from "../../../../assets/icons/telo-fam.png";
+import DesktopVideo from "./DesktopVideo.mp4"
+import MobileVideo from "./MobileVideo.mp4"
 
-function Main() {
+interface IProps {
+
+}
+
+interface IState {
+    matches: boolean
+}
+
+export default class Main extends React.Component<IProps, IState> {
+    constructor(props: IProps) {
+        super(props);
+        this.state = { matches: window.matchMedia("(min-width: 768px)").matches };
+    }
+
+    componentDidMount() {
+        const handler = (e: { matches: any; }) => this.setState({matches: e.matches});
+        window.matchMedia("(min-width: 768px)").addEventListener('change', handler);
+      }
+
+render() {
     return (
-        <div className="landing-main">
-            <div className="landing-main-img-wrap">
-                <img src={SplashImg} alt="" />
-            </div>
+        <div className="landing-main">   
+            {this.state.matches && (
+                <video 
+                    className="video"
+                    loop
+                    autoPlay 
+                    src={DesktopVideo} 
+                />)}
+            {!this.state.matches && (
+                <video 
+                    className="video"
+                    loop 
+                    autoPlay 
+                    src={MobileVideo} 
+                />)
+                }
             <div className="landing-main-btns-wrap">
                 <Link href="javascript:void(0)" rel="noreferrer">
                     <div className="landing-main-btn">
@@ -31,5 +63,4 @@ function Main() {
         </div>
     );
 }
-
-export default Main;
+}
