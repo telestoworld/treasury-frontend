@@ -27,16 +27,18 @@ render() {
     return (
         <div className="landing-main">   
             {this.state.matches && (
-                <video 
+                <video id="bgVideo"
                     className="video"
                     loop
+                    muted
                     autoPlay 
                     src={DesktopVideo} 
                 />)}
             {!this.state.matches && (
-                <video 
+                <video id="bgVideo"
                     className="video"
                     loop 
+                    muted
                     autoPlay 
                     src={MobileVideo} 
                 />)

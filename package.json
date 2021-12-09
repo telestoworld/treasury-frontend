@@ -75,7 +75,7 @@
     "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "build-dos": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
     "eject": "react-scripts eject",
-    "start": "react-scripts start",
+    "start": "react-scripts --openssl-legacy-provider start ",
     "update": "yarn add ethers --latest",
     "test": "react-scripts test",
     "lint": "npx eslint src/ --ext .ts,.js,.tsx,.jsx",
