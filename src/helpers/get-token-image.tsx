@@ -11,7 +11,7 @@ export function getTokenUrl(name: string) {
         return toUrl(TelestoImg);
     }
 
-    if (name === "sTelo") {
+    if (name === "stelo") {
         return toUrl(MemoImg);
     }
 

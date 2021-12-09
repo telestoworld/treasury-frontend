@@ -67,10 +67,10 @@ function TelestoMenu() {
                                     <div className="divider" />
                                     <p className="add-tokens-title">ADD TOKEN TO WALLET</p>
                                     <div className="divider" />
-                                    <div className="tooltip-item" onClick={addTokenToWallet("Telo", TELESTO_ADDRESS)}>
+                                    <div className="tooltip-item" onClick={addTokenToWallet("telo", TELESTO_ADDRESS)}>
                                         <p>Telo</p>
                                     </div>
-                                    <div className="tooltip-item" onClick={addTokenToWallet("sTelo", STAKED_TELESTO_ADDRESS)}>
+                                    <div className="tooltip-item" onClick={addTokenToWallet("stelo", STAKED_TELESTO_ADDRESS)}>
                                         <p>sTelo</p>
                                     </div>
                                 </div>
