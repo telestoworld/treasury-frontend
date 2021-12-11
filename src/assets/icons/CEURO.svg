@@ -1,7 +1,4 @@
-import * as React from "react";
-
-const CEURSVG = (props) => (
-  <svg
+<svg
     width={100}
     height={100}
     xmlns="http://www.w3.org/2000/svg"
@@ -18,6 +15,3 @@ const CEURSVG = (props) => (
       fill="#FFF"
     />
   </svg>
-);
-
-export default CEURSVG;

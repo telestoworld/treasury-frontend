@@ -111,15 +111,15 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
         dispatch(changeApproval({ address, bond, provider, networkID: chainID }));
     };
 
-    const handleZapinOpen = () => {
-        dispatch(calcBondDetails({ bond, value: "0", provider, networkID: chainID }));
-        setZapinOpen(true);
-    };
+    // const handleZapinOpen = () => {
+    //     dispatch(calcBondDetails({ bond, value: "0", provider, networkID: chainID }));
+    //     setZapinOpen(true);
+    // };
 
-    const handleZapinClose = () => {
-        dispatch(calcBondDetails({ bond, value: quantity, provider, networkID: chainID }));
-        setZapinOpen(false);
-    };
+    // const handleZapinClose = () => {
+    //     dispatch(calcBondDetails({ bond, value: quantity, provider, networkID: chainID }));
+    //     setZapinOpen(false);
+    // };
 
     const displayUnits = useTELO ? "TELO" : bond.displayUnits;
 
@@ -173,9 +173,9 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                     </div>
                 )}
 
-                <div className="transaction-button bond-approve-btn" onClick={handleZapinOpen}>
+                {/* <div className="transaction-button bond-approve-btn" onClick={handleZapinOpen}>
                     <p>Zap</p>
-                </div>
+                </div> */}
 
                 {!hasAllowance() && !useTELO && (
                     <div className="help-text">
@@ -234,7 +234,7 @@ function BondPurchase({ bond, slippage, recipientAddress }: IBondPurchaseProps) 
                     )}
                 </Box>
             </Slide>
-            <Zapin open={zapinOpen} handleClose={handleZapinClose} bond={bond} />
+            {/* <Zapin open={zapinOpen} handleClose={handleZapinClose} bond={bond} /> */}
         </Box>
     );
 }

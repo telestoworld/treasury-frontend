@@ -92,10 +92,10 @@ export interface IBondDetails {
 }
 
 export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async ({ bond, value, provider, networkID }: ICalcBondDetails, { dispatch }) => {
+console.log(bond, value, provider, networkID);
     if (!value) {
         value = "0";
     }
-
     const amountInWei = ethers.utils.parseEther(value);
 
     let bondPrice = 0,
@@ -107,14 +107,15 @@ export const calcBondDetails = createAsyncThunk("bonding/calcBondDetails", async
 
     const bondContract = bond.getContractForBond(networkID, provider);
     const bondCalcContract = getBondCalculator(networkID, provider);
-
+    console.log(bondContract,bondCalcContract,"BONDS")
     const terms = await bondContract.terms();
-    const maxBondPrice = (await bondContract.maxPayout()) / Math.pow(10, 9);
+    const maxPayout=(await bondContract.maxPayout())
+    const maxBondPrice = (maxPayout) / Math.pow(10, 9);
 
     let marketPrice = await getMarketPrice(networkID, provider as any);
 
-    const mimPrice = getTokenPrice("MIM");
-    marketPrice = (marketPrice / Math.pow(10, 9)) * mimPrice;
+    const cmc02Price = getTokenPrice("CMCO2");
+    marketPrice = cmc02Price;
 
     try {
         bondPrice = await bondContract.bondPriceInUSD();
@@ -322,7 +323,7 @@ const bondingSlice = createSlice({
             })
             .addCase(calcBondDetails.rejected, (state, { error }) => {
                 state.loading = false;
-                console.log(error);
+console.error(error);
             });
     },
 });

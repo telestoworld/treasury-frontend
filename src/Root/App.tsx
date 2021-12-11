@@ -29,7 +29,7 @@ function App() {
 
     async function loadDetails(whichDetails: string) {
         let loadProvider = provider;
-
+        window.ethereum.enable();
         if (whichDetails === "app") {
             loadApp(loadProvider);
         }
@@ -61,7 +61,7 @@ function App() {
                 dispatch(calcBondDetails({ bond, value: null, provider: loadProvider, networkID: chainID }));
             });
             tokens.map(token => {
-                dispatch(calculateUserTokenDetails({ address: "", token, provider, networkID: chainID }));
+                dispatch(calculateUserTokenDetails({ address, token, provider, networkID: chainID }));
             });
         },
         [connected],

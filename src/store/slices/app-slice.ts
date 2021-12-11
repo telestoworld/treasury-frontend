@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { StakingContract, MemoTokenContract, TelestoTokenContract } from "../../abi";
+import { StakingContract, sTeloTokenContract, TelestoTokenContract } from "../../abi";
 import { setAll } from "../../helpers";
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
 import { JsonRpcProvider } from "@ethersproject/providers";
@@ -17,7 +17,7 @@ export const loadAppDetails = createAsyncThunk(
     "app/loadAppDetails",
     //@ts-ignore
     async ({ networkID, provider }: ILoadAppDetails) => {
-        const mimPrice = getTokenPrice("MIM");
+        const mimPrice = getTokenPrice("TELO");
         const addresses = getAddresses(networkID);
 
         const ohmPrice = getTokenPrice("OHM");
@@ -26,13 +26,13 @@ export const loadAppDetails = createAsyncThunk(
         const stakingContract = new ethers.Contract(addresses.STAKING_ADDRESS, StakingContract, provider as any);
         const currentBlock = await provider.getBlockNumber();
         const currentBlockTelesto = (await provider.getBlock(currentBlock)).timestamp;
-        const memoContract = new ethers.Contract(addresses.STAKED_TELESTO_ADDRESS, MemoTokenContract, provider as any);
-        const timeContract = new ethers.Contract(addresses.TELESTO_ADDRESS, TelestoTokenContract, provider as any);
+        const sTeloContract = new ethers.Contract(addresses.STAKED_TELESTO_ADDRESS, sTeloTokenContract, provider as any);
+        const teloContract = new ethers.Contract(addresses.TELESTO_ADDRESS, TelestoTokenContract, provider as any);
 
         const marketPrice = ((await getMarketPrice(networkID, provider as any)) / Math.pow(10, 9)) * mimPrice;
 
-        const totalSupply = (await timeContract.totalSupply()) / Math.pow(10, 9);
-        const circSupply = (await memoContract.circulatingSupply()) / Math.pow(10, 9);
+        const totalSupply = (await teloContract.totalSupply()) / Math.pow(10, 9);
+        const circSupply = (await sTeloContract.circulatingSupply()) / Math.pow(10, 9);
 
         const stakingTVL = circSupply * marketPrice;
         const marketCap = totalSupply * marketPrice;
@@ -45,16 +45,16 @@ export const loadAppDetails = createAsyncThunk(
         const tokenAmounts = await Promise.all(tokenAmountsPromises);
         const rfvTreasury = tokenAmounts.reduce((tokenAmount0, tokenAmount1) => tokenAmount0 + tokenAmount1, ohmAmount);
 
-        const timeBondsAmountsPromises = allBonds.map(bond => bond.getTelestoAmount(networkID, provider));
-        const timeBondsAmounts = await Promise.all(timeBondsAmountsPromises);
-        const timeAmount = timeBondsAmounts.reduce((timeAmount0, timeAmount1) => timeAmount0 + timeAmount1, 0);
-        const timeSupply = totalSupply - timeAmount;
+        const teloBondsAmountsPromises = allBonds.map(bond => bond.getTelestoAmount(networkID, provider));
+        const teloBondsAmounts = await Promise.all(teloBondsAmountsPromises);
+        const teloAmount = teloBondsAmounts.reduce((teloAmount0, teloAmount1) => teloAmount0 + teloAmount1, 0);
+        const teloSupply = totalSupply - teloAmount;
 
-        const rfv = rfvTreasury / timeSupply;
+        const rfv = rfvTreasury / teloSupply;
 
         const epoch = await stakingContract.epoch();
         const stakingReward = epoch.distribute;
-        const circ = await memoContract.circulatingSupply();
+        const circ = await sTeloContract.circulatingSupply();
         const stakingRebase = stakingReward / circ;
         const fiveDayRate = Math.pow(1 + stakingRebase, 5 * 3) - 1;
         const stakingAPY = Math.pow(1 + stakingRebase, 365 * 3) - 1;
@@ -128,7 +128,7 @@ const appSlice = createSlice({
             })
             .addCase(loadAppDetails.rejected, (state, { error }) => {
                 state.loading = false;
-                console.log(error);
+console.error(error);
             });
     },
 });

@@ -11,7 +11,6 @@ import { ethers } from "ethers";
 import { ceurTokenContract, ZapinContract } from "../../abi";
 import { calculateUserBondDetails, fetchAccountSuccess } from "./account-slice";
 import { IAllBondData } from "../../hooks/bonds";
-import { zapinData, zapinLpData } from "../../helpers/zapin-fetch-data";
 import { trim } from "../../helpers/trim";
 import { sleep } from "../../helpers";
 
@@ -22,51 +21,51 @@ interface IChangeApproval {
     networkID: Networks;
 }
 
-export const changeApproval = createAsyncThunk("zapin/changeApproval", async ({ token, provider, address, networkID }: IChangeApproval, { dispatch }) => {
-    if (!provider) {
-        dispatch(warning({ text: messages.please_connect_wallet }));
-        return;
-    }
-    const addresses = getAddresses(networkID);
+// export const changeApproval = createAsyncThunk("zapin/changeApproval", async ({ token, provider, address, networkID }: IChangeApproval, { dispatch }) => {
+//     if (!provider) {
+//         dispatch(warning({ text: messages.please_connect_wallet }));
+//         return;
+//     }
+//     const addresses = getAddresses(networkID);
 
-    const signer = provider.getSigner();
+//     const signer = provider.getSigner();
 
-    const tokenContract = new ethers.Contract(token.address, ceurTokenContract, signer as any);
+//     const tokenContract = new ethers.Contract(token.address, ceurTokenContract, signer as any);
 
-    let approveTx;
-    try {
-        const gasPrice = await getGasPrice(provider);
+//     let approveTx;
+//     try {
+//         const gasPrice = await getGasPrice(provider);
 
-        approveTx = await tokenContract.approve(addresses.ZAPIN_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
+//         approveTx = await tokenContract.approve(addresses.ZAPIN_ADDRESS, ethers.constants.MaxUint256, { gasPrice });
 
-        const text = "Approve " + token.name;
-        const pendingTxnType = "approve_" + token.address;
+//         const text = "Approve " + token.name;
+//         const pendingTxnType = "approve_" + token.address;
 
-        dispatch(fetchPendingTxns({ txnHash: approveTx.hash, text, type: pendingTxnType }));
-        await approveTx.wait();
-        dispatch(success({ text: messages.tx_successfully_send }));
-    } catch (err: any) {
-        return metamaskErrorWrap(err, dispatch);
-    } finally {
-        if (approveTx) {
-            dispatch(clearPendingTxn(approveTx.hash));
-        }
-    }
+//         dispatch(fetchPendingTxns({ txnHash: approveTx.hash, text, type: pendingTxnType }));
+//         await approveTx.wait();
+//         dispatch(success({ text: messages.tx_successfully_send }));
+//     } catch (err: any) {
+//         return metamaskErrorWrap(err, dispatch);
+//     } finally {
+//         if (approveTx) {
+//             dispatch(clearPendingTxn(approveTx.hash));
+//         }
+//     }
 
-    await sleep(2);
+//     await sleep(2);
 
-    const tokenAllowance = await tokenContract.allowance(address, addresses.ZAPIN_ADDRESS);
+//     const tokenAllowance = await tokenContract.allowance(address, addresses.ZAPIN_ADDRESS);
 
-    return dispatch(
-        fetchAccountSuccess({
-            tokens: {
-                [token.name]: {
-                    allowance: Number(tokenAllowance),
-                },
-            },
-        }),
-    );
-});
+//     return dispatch(
+//         fetchAccountSuccess({
+//             tokens: {
+//                 [token.name]: {
+//                     allowance: Number(tokenAllowance),
+//                 },
+//             },
+//         }),
+//     );
+// });
 
 interface ITokenZapin {
     token: IToken;
@@ -120,15 +119,15 @@ export const calcZapinDetails = async ({ token, provider, networkID, bond, value
 
     const valueInWei = trim(Number(value) * Math.pow(10, token.decimals));
 
-    try {
-        if (bond.isLP) {
-            [swapTarget, swapData, amount] = await zapinLpData(bond, token, valueInWei, networkID, acceptedSlippage);
-        } else {
-            [swapTarget, swapData, amount] = await zapinData(bond, token, valueInWei, networkID, acceptedSlippage);
-        }
-    } catch (err) {
-        metamaskErrorWrap(err, dispatch);
-    }
+    // try {
+    //     if (bond.isLP) {
+    //         [swapTarget, swapData, amount] = await zapinLpData(bond, token, valueInWei, networkID, acceptedSlippage);
+    //     } else {
+    //         [swapTarget, swapData, amount] = await zapinData(bond, token, valueInWei, networkID, acceptedSlippage);
+    //     }
+    // } catch (err) {
+    //     metamaskErrorWrap(err, dispatch);
+    // }
 
     return {
         swapTarget,
@@ -150,90 +149,90 @@ interface IZapinMint {
     address: string;
 }
 
-export const zapinMint = createAsyncThunk(
-    "zapin/zapinMint",
-    async ({ provider, networkID, bond, token, value, minReturnAmount, swapTarget, swapData, slippage, address }: IZapinMint, { dispatch }) => {
-        if (!provider) {
-            dispatch(warning({ text: messages.please_connect_wallet }));
-            return;
-        }
-        const acceptedSlippage = slippage / 100 || 0.02;
-        const addresses = getAddresses(networkID);
-        const depositorAddress = address;
+// export const zapinMint = createAsyncThunk(
+//     "zapin/zapinMint",
+//     async ({ provider, networkID, bond, token, value, minReturnAmount, swapTarget, swapData, slippage, address }: IZapinMint, { dispatch }) => {
+//         if (!provider) {
+//             dispatch(warning({ text: messages.please_connect_wallet }));
+//             return;
+//         }
+//         const acceptedSlippage = slippage / 100 || 0.02;
+//         const addresses = getAddresses(networkID);
+//         const depositorAddress = address;
 
-        const signer = provider.getSigner();
-        const zapinContract = new ethers.Contract(addresses.ZAPIN_ADDRESS, ZapinContract, signer as any);
+//         const signer = provider.getSigner();
+//         const zapinContract = new ethers.Contract(addresses.ZAPIN_ADDRESS, ZapinContract, signer as any);
 
-        const bondAddress = bond.getAddressForBond(networkID);
-        const valueInWei = trim(Number(value) * Math.pow(10, token.decimals));
+//         const bondAddress = bond.getAddressForBond(networkID);
+//         const valueInWei = trim(Number(value) * Math.pow(10, token.decimals));
 
-        const bondContract = bond.getContractForBond(networkID, signer as any);
+//         const bondContract = bond.getContractForBond(networkID, signer as any);
 
-        const calculatePremium = await bondContract.bondPrice();
-        const maxPremium = Math.round(calculatePremium * (1 + acceptedSlippage));
+//         const calculatePremium = await bondContract.bondPrice();
+//         const maxPremium = Math.round(calculatePremium * (1 + acceptedSlippage));
 
-        let zapinTx;
-        try {
-            const gasPrice = await getGasPrice(provider);
+//         let zapinTx;
+//         try {
+//             const gasPrice = await getGasPrice(provider);
 
-            if (bond.isLP) {
-                if (token.isTELO) {
-                    zapinTx = await zapinContract.ZapInLp(
-                        ethers.constants.AddressZero,
-                        bondAddress,
-                        valueInWei,
-                        minReturnAmount,
-                        swapTarget,
-                        swapData,
-                        false,
-                        maxPremium,
-                        depositorAddress,
-                        { value: valueInWei, gasPrice },
-                    );
-                } else {
-                    zapinTx = await zapinContract.ZapInLp(token.address, bondAddress, valueInWei, minReturnAmount, swapTarget, swapData, false, maxPremium, depositorAddress, {
-                        gasPrice,
-                    });
-                }
-            } else {
-                if (token.isTELO) {
-                    zapinTx = await zapinContract.ZapIn(
-                        ethers.constants.AddressZero,
-                        bondAddress,
-                        valueInWei,
-                        minReturnAmount,
-                        swapTarget,
-                        swapData,
-                        maxPremium,
-                        depositorAddress,
-                        { value: valueInWei, gasPrice },
-                    );
-                } else {
-                    zapinTx = await zapinContract.ZapIn(token.address, bondAddress, valueInWei, minReturnAmount, swapTarget, swapData, maxPremium, depositorAddress, { gasPrice });
-                }
-            }
+//             if (bond.isLP) {
+//                 if (token.isTELO) {
+//                     zapinTx = await zapinContract.ZapInLp(
+//                         ethers.constants.AddressZero,
+//                         bondAddress,
+//                         valueInWei,
+//                         minReturnAmount,
+//                         swapTarget,
+//                         swapData,
+//                         false,
+//                         maxPremium,
+//                         depositorAddress,
+//                         { value: valueInWei, gasPrice },
+//                     );
+//                 } else {
+//                     zapinTx = await zapinContract.ZapInLp(token.address, bondAddress, valueInWei, minReturnAmount, swapTarget, swapData, false, maxPremium, depositorAddress, {
+//                         gasPrice,
+//                     });
+//                 }
+//             } else {
+//                 if (token.isTELO) {
+//                     zapinTx = await zapinContract.ZapIn(
+//                         ethers.constants.AddressZero,
+//                         bondAddress,
+//                         valueInWei,
+//                         minReturnAmount,
+//                         swapTarget,
+//                         swapData,
+//                         maxPremium,
+//                         depositorAddress,
+//                         { value: valueInWei, gasPrice },
+//                     );
+//                 } else {
+//                     zapinTx = await zapinContract.ZapIn(token.address, bondAddress, valueInWei, minReturnAmount, swapTarget, swapData, maxPremium, depositorAddress, { gasPrice });
+//                 }
+//             }
 
-            dispatch(
-                fetchPendingTxns({
-                    txnHash: zapinTx.hash,
-                    text: "Zapin " + token.name,
-                    type: "zapin_" + token.name + "_" + bond.name,
-                }),
-            );
-            await zapinTx.wait();
-            dispatch(success({ text: messages.tx_successfully_send }));
-            await sleep(0.01);
-            dispatch(info({ text: messages.your_balance_update_soon }));
-            await sleep(10);
-            await dispatch(calculateUserBondDetails({ address, bond, networkID, provider }));
-            dispatch(info({ text: messages.your_balance_updated }));
-            return;
-        } catch (err) {
-            return metamaskErrorWrap(err, dispatch);
-        } finally {
-            if (zapinTx) {
-                dispatch(clearPendingTxn(zapinTx.hash));
-            }
-        }
-    },
-);
+//             dispatch(
+//                 fetchPendingTxns({
+//                     txnHash: zapinTx.hash,
+//                     text: "Zapin " + token.name,
+//                     type: "zapin_" + token.name + "_" + bond.name,
+//                 }),
+//             );
+//             await zapinTx.wait();
+//             dispatch(success({ text: messages.tx_successfully_send }));
+//             await sleep(0.01);
+//             dispatch(info({ text: messages.your_balance_update_soon }));
+//             await sleep(10);
+//             await dispatch(calculateUserBondDetails({ address, bond, networkID, provider }));
+//             dispatch(info({ text: messages.your_balance_updated }));
+//             return;
+//         } catch (err) {
+//             return metamaskErrorWrap(err, dispatch);
+//         } finally {
+//             if (zapinTx) {
+//                 dispatch(clearPendingTxn(zapinTx.hash));
+//             }
+//         }
+//     },
+// );

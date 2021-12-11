@@ -315,7 +315,7 @@ const teddy: IToken = {
     decimals: 18,
 };
 
-const time: IToken = {
+const telesto: IToken = {
     name: "TELESTO",
     address: "0xb54f16fB19478766A268F172C9480f8da1a7c9C3",
     img: TelestoIcon,
@@ -352,7 +352,7 @@ const vso: IToken = {
 
 export const wTELO: IToken = {
     name: "WTELO",
-    address: "0xB31f66AA3C1e785363F0875A1B74E27b85FD66c7",
+    address: "0xB08B5777fd0AD1175fC62B9A55912c38b559260c",
     img: WTELOIcon,
     decimals: 18,
 };
@@ -362,13 +362,6 @@ const wbtc: IToken = {
     address: "0x50b7545627a5162F82A992c33b87aDc75187B218",
     img: WBtcIcon,
     decimals: 8,
-};
-
-const wet: IToken = {
-    name: "WET",
-    address: "0xB1466d4cf0DCfC0bCdDcf3500F473cdACb88b56D",
-    img: WetIcon,
-    decimals: 18,
 };
 
 const weth: IToken = {
@@ -385,60 +378,30 @@ const xava: IToken = {
     decimals: 18,
 };
 
-const yak: IToken = {
-    name: "YAK",
-    address: "0x59414b3089ce2AF0010e7523Dea7E2b35d776ec7",
+const cEUR: IToken = {
+    name: "cEur",
+    address: "0x74C422a2D64dc0f68b80DFC10Ba06e92058F14AA",
+    img: YakIcon,
+    decimals: 18,
+};
+const cUSD: IToken = {
+    name: "cUSD",
+    address: "0x42CA2AD44521204d57ead3E5465688F100dc1c13",
+    img: YakIcon,
+    decimals: 18,
+};
+
+const cMCO2: IToken = {
+    name: "CMCO2",
+    address: "0xFEfb18f20C7548b72FDdBe4b70d07ee2ab63F60E",
     img: YakIcon,
     decimals: 18,
 };
 
 export default [
     TELO,
-    aave,
-    apeX,
-    apein,
-    bifi,
-    blizz,
-    bnb,
-    boofi,
-    chart,
-    dai,
-    dregg,
-    ele,
-    elk,
-    frax,
-    gb,
-    hat,
-    husky,
-    ice,
-    joe,
-    klo,
-    link,
-    mai,
-    mim,
-    myak,
-    olive,
-    pefi,
-    png,
-    qi,
-    relay,
-    sherpa,
-    shibx,
-    sing,
-    snob,
-    spell,
-    sushi,
-    syn,
-    teddy,
-    time,
-    tsd,
-    usdc,
-    usdt,
-    vso,
     wTELO,
-    wbtc,
-    wet,
-    weth,
-    xava,
-    yak,
+    cEUR,
+    cUSD,
+    cMCO2,
 ];

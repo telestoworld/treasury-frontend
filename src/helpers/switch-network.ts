@@ -48,10 +48,11 @@ export const swithNetwork = async () => {
                     await addChainRequest(true);
                     await switchRequest();
                 } catch (addError) {
-                    console.log(error);
+                    console.error(error);
                 }
             }
-            console.log(error);
+            console.error(error);
+
         }
     }
 };

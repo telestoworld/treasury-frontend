@@ -1,6 +1,6 @@
 import { ethers } from "ethers";
 import { getAddresses } from "../../constants";
-import { TelestoTokenContract, MemoTokenContract, ceurTokenContract } from "../../abi";
+import { TelestoTokenContract, sTeloTokenContract, ceurTokenContract } from "../../abi";
 import { setAll } from "../../helpers";
 
 import { createSlice, createSelector, createAsyncThunk } from "@reduxjs/toolkit";
@@ -19,23 +19,23 @@ interface IGetBalances {
 
 interface IAccountBalances {
     balances: {
-        memo: string;
-        time: string;
+        stelo: string;
+        telo: string;
     };
 }
 
 export const getBalances = createAsyncThunk("account/getBalances", async ({ address, networkID, provider }: IGetBalances): Promise<IAccountBalances> => {
     const addresses = getAddresses(networkID);
 
-    const memoContract = new ethers.Contract(addresses.STAKED_TELESTO_ADDRESS, MemoTokenContract, provider as any);
-    const memoBalance = await memoContract.balanceOf(address);
-    const timeContract = new ethers.Contract(addresses.TELESTO_ADDRESS, TelestoTokenContract, provider as any);
-    const timeBalance = await timeContract.balanceOf(address);
+    const sTeloContract = new ethers.Contract(addresses.STAKED_TELESTO_ADDRESS, sTeloTokenContract, provider as any);
+    const steloBalance = await sTeloContract.balanceOf(address);
+    const teloContract = new ethers.Contract(addresses.TELESTO_ADDRESS, TelestoTokenContract, provider as any);
+    const teloBalance = await teloContract.balanceOf(address);
 
     return {
         balances: {
-            memo: ethers.utils.formatUnits(memoBalance, "gwei"),
-            time: ethers.utils.formatUnits(timeBalance, "gwei"),
+            stelo: ethers.utils.formatUnits(steloBalance, "gwei"),
+            telo: ethers.utils.formatUnits(teloBalance, "gwei"),
         },
     };
 });
@@ -48,43 +48,43 @@ interface ILoadAccountDetails {
 
 interface IUserAccountDetails {
     balances: {
-        time: string;
-        memo: string;
+        telo: string;
+        stelo: string;
     };
     staking: {
-        time: number;
-        memo: number;
+        telo: number;
+        stelo: number;
     };
 }
 
 export const loadAccountDetails = createAsyncThunk("account/loadAccountDetails", async ({ networkID, provider, address }: ILoadAccountDetails): Promise<IUserAccountDetails> => {
-    let timeBalance = 0;
-    let memoBalance = 0;
+    let teloBalance = 0;
+    let stakedBalance = 0;
     let stakeAllowance = 0;
     let unstakeAllowance = 0;
 
     const addresses = getAddresses(networkID);
 
     if (addresses.TELESTO_ADDRESS) {
-        const timeContract = new ethers.Contract(addresses.TELESTO_ADDRESS, TelestoTokenContract, provider as any);
-        timeBalance = await timeContract.balanceOf(address);
-        stakeAllowance = await timeContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
+        const teloContract = new ethers.Contract(addresses.TELESTO_ADDRESS, TelestoTokenContract, provider as any);
+        teloBalance = await teloContract.balanceOf(address);
+        stakeAllowance = await teloContract.allowance(address, addresses.STAKING_HELPER_ADDRESS);
     }
 
     if (addresses.STAKED_TELESTO_ADDRESS) {
-        const memoContract = new ethers.Contract(addresses.STAKED_TELESTO_ADDRESS, MemoTokenContract, provider as any);
-        memoBalance = await memoContract.balanceOf(address);
-        unstakeAllowance = await memoContract.allowance(address, addresses.STAKING_ADDRESS);
+        const sTeloContract = new ethers.Contract(addresses.STAKED_TELESTO_ADDRESS, sTeloTokenContract, provider as any);
+        stakedBalance = await sTeloContract.balanceOf(address);
+        unstakeAllowance = await sTeloContract.allowance(address, addresses.STAKING_ADDRESS);
     }
 
     return {
         balances: {
-            memo: ethers.utils.formatUnits(memoBalance, "gwei"),
-            time: ethers.utils.formatUnits(timeBalance, "gwei"),
+            stelo: ethers.utils.formatUnits(stakedBalance, "gwei"),
+            telo: ethers.utils.formatUnits(teloBalance, "gwei"),
         },
         staking: {
-            time: Number(stakeAllowance),
-            memo: Number(unstakeAllowance),
+            telo: Number(stakeAllowance),
+            stelo: Number(unstakeAllowance),
         },
     };
 });
@@ -174,6 +174,7 @@ export interface IUserTokenDetails {
 
 export const calculateUserTokenDetails = createAsyncThunk("account/calculateUserTokenDetails", async ({ address, token, networkID, provider }: ICalcUserTokenDetails) => {
     if (!address) {
+        console.log(address,"no address");
         return new Promise<any>(resevle => {
             resevle({
                 token: "",
@@ -186,6 +187,7 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
     }
 
     if (token.isTELO) {
+        console.log("TELO");
         const TELOBalance = await provider.getSigner().getBalance();
         const TELOVal = ethers.utils.formatEther(TELOBalance);
 
@@ -197,14 +199,11 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
         };
     }
 
-    const addresses = getAddresses(networkID);
 
     const tokenContract = new ethers.Contract(token.address, ceurTokenContract, provider as any);
 
     let allowance,
         balance = "0";
-
-    allowance = await tokenContract.allowance(address, addresses.ZAPIN_ADDRESS);
     balance = await tokenContract.balanceOf(address);
 
     const balanceVal = Number(balance) / Math.pow(10, token.decimals);
@@ -221,13 +220,13 @@ export const calculateUserTokenDetails = createAsyncThunk("account/calculateUser
 export interface IAccountSlice {
     bonds: { [key: string]: IUserBondDetails };
     balances: {
-        memo: string;
-        time: string;
+        stelo: string;
+        telo: string;
     };
     loading: boolean;
     staking: {
-        time: number;
-        memo: number;
+        telo: number;
+        stelo: number;
     };
     tokens: { [key: string]: IUserTokenDetails };
 }
@@ -235,8 +234,8 @@ export interface IAccountSlice {
 const initialState: IAccountSlice = {
     loading: true,
     bonds: {},
-    balances: { memo: "", time: "" },
-    staking: { time: 0, memo: 0 },
+    balances: { stelo: "", telo: "" },
+    staking: { telo: 0, stelo: 0 },
     tokens: {},
 };
 
@@ -259,7 +258,7 @@ const accountSlice = createSlice({
             })
             .addCase(loadAccountDetails.rejected, (state, { error }) => {
                 state.loading = false;
-                console.log(error);
+                console.error(error.stack);
             })
             .addCase(getBalances.pending, state => {
                 state.loading = true;
@@ -270,7 +269,7 @@ const accountSlice = createSlice({
             })
             .addCase(getBalances.rejected, (state, { error }) => {
                 state.loading = false;
-                console.log(error);
+                console.error(error.stack);
             })
             .addCase(calculateUserBondDetails.pending, (state, action) => {
                 state.loading = true;
@@ -283,7 +282,7 @@ const accountSlice = createSlice({
             })
             .addCase(calculateUserBondDetails.rejected, (state, { error }) => {
                 state.loading = false;
-                console.log(error);
+                console.error(error.stack);
             })
             .addCase(calculateUserTokenDetails.pending, (state, action) => {
                 state.loading = true;
@@ -296,7 +295,7 @@ const accountSlice = createSlice({
             })
             .addCase(calculateUserTokenDetails.rejected, (state, { error }) => {
                 state.loading = false;
-                console.log(error);
+                console.error(error.stack);
             });
     },
 });

@@ -24,7 +24,8 @@ const addTokenToWallet = (tokenSymbol: string, tokenAddress: string) => async ()
                 },
             });
         } catch (error) {
-            console.log(error);
+            console.error(error);
+
         }
     }
 };
@@ -58,7 +59,7 @@ function TelestoMenu() {
                 {({ TransitionProps }) => (
                     <Fade {...TransitionProps} timeout={200}>
                         <div className="tooltip">
-                            <Link className="tooltip-item" href={`https://www.ubeswap.org/#/trade?inputCurrency=&outputCurrency=${TELESTO_ADDRESS}`} target="_blank">
+                            <Link className="tooltip-item" href={`https://app.ubeswap.org/trade?inputCurrency=&outputCurrency=${TELESTO_ADDRESS}`} target="_blank">
                                 <p>Buy on Ube Swap</p>
                             </Link>
 

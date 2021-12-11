@@ -72,8 +72,8 @@
     "ethers": "5.5.2"
   },
   "scripts": {
-    "build": "GENERATE_SOURCEMAP=false react-scripts build",
-    "build-dos": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
+    "build": "GENERATE_SOURCEMAP=false react-scripts --openssl-legacy-provider build ",
+    "build-dos": "set \"GENERATE_SOURCEMAP=false\" && react-scripts --openssl-legacy-provider build",
     "eject": "react-scripts eject",
     "start": "react-scripts --openssl-legacy-provider start ",
     "update": "yarn add ethers --latest",

@@ -28,7 +28,6 @@ export class LPBond extends Bond {
 
     async getTreasuryBalance(networkID: Networks, provider: StaticJsonRpcProvider) {
         const addresses = getAddresses(networkID);
-
         const token = this.getContractForReserve(networkID, provider);
         const tokenAddress = this.getAddressForReserve(networkID);
         const bondCalculator = getBondCalculator(networkID, provider);

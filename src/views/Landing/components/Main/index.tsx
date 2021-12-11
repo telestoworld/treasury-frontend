@@ -28,15 +28,15 @@ render() {
         <div className="landing-main">   
             {this.state.matches && (
                 <video id="bgVideo"
-                    className="video"
                     loop
+                    playsInline
                     muted
                     autoPlay 
                     src={DesktopVideo} 
                 />)}
             {!this.state.matches && (
                 <video id="bgVideo"
-                    className="video"
+                    playsInline
                     loop 
                     muted
                     autoPlay 

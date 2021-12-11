@@ -5,7 +5,7 @@ export { abi as WTELOBondContract } from "./bonds/WTELOContract.json";
 export { abi as StableReserveContract } from "./reserves/StableContract.json";
 export { abi as LpReserveContract } from "./reserves/LpContract.json";
 
-export { abi as MemoTokenContract } from "./tokens/StakedTelestoContract.json";
+export { abi as sTeloTokenContract } from "./tokens/StakedTelestoContract.json";
 export { abi as TelestoTokenContract } from "./tokens/TelestoContract.json";
 export { abi as ceurTokenContract } from "./tokens/MimContract.json";
 

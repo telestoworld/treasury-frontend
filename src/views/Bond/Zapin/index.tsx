@@ -12,7 +12,6 @@ import { shorten, trim } from "../../../helpers";
 import BondLogo from "../../../components/BondLogo";
 import { useDispatch, useSelector } from "react-redux";
 import { IReduxState } from "../../../store/slices/state.interface";
-import { changeApproval, calcZapinDetails, ITokenZapinResponse, zapinMint } from "../../../store/slices/zapin-thunk";
 import { IPendingTxn, isPendingTxn, txnButtonText } from "../../../store/slices/pending-txns-slice";
 import { useWeb3Context } from "../../../hooks";
 import { wTELO } from "../../../helpers/bond";
@@ -22,6 +21,7 @@ import { warning } from "../../../store/slices/messages-slice";
 import { messages } from "../../../constants/messages";
 import { utils } from "ethers";
 import { calcBondDetails } from "../../../store/slices/bond-slice";
+import { ITokenZapinResponse } from "src/store/slices/zapin-thunk";
 
 interface IZapinProps {
     open: boolean;
@@ -64,7 +64,7 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
     const onSeekApproval = async () => {
         if (await checkWrongNetwork()) return;
 
-        dispatch(changeApproval({ address, token, provider, networkID: chainID }));
+        // dispatch(changeApproval({ address, token, provider, networkID: chainID }));
     };
 
     const onMint = async () => {
@@ -74,20 +74,20 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
             return dispatch(warning({ text: messages.something_wrong }));
         }
 
-        dispatch(
-            zapinMint({
-                provider,
-                networkID: chainID,
-                bond,
-                token,
-                value: quantity,
-                minReturnAmount: swapInfo.amount,
-                swapTarget: swapInfo.swapTarget,
-                swapData: swapInfo.swapData,
-                slippage,
-                address,
-            }),
-        );
+        // dispatch(
+        //     zapinMint({
+        //         provider,
+        //         networkID: chainID,
+        //         bond,
+        //         token,
+        //         value: quantity,
+        //         minReturnAmount: swapInfo.amount,
+        //         swapTarget: swapInfo.swapTarget,
+        //         swapData: swapInfo.swapData,
+        //         slippage,
+        //         address,
+        //     }),
+        // );
     };
 
     const onRecipientAddressChange = (value: any) => {
@@ -121,14 +121,14 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
         if (Number(quantity) > 0) {
             setLoading(true);
             timeount = setTimeout(async () => {
-                const info = await calcZapinDetails({ token, provider, networkID: chainID, bond, value: quantity, slippage, dispatch });
-                if (info.amount) {
-                    const amount = utils.formatEther(info.amount);
-                    dispatch(calcBondDetails({ bond, value: amount, provider, networkID: chainID }));
-                } else {
+               // const info = await calcZapinDetails({ token, provider, networkID: chainID, bond, value: quantity, slippage, dispatch });
+                // if (info.amount) {
+                //     const amount = utils.formatEther(info.amount);
+                //     dispatch(calcBondDetails({ bond, value: amount, provider, networkID: chainID }));
+                // } else {
                     dispatch(calcBondDetails({ bond, value: "0", provider, networkID: chainID }));
-                }
-                setSwapInfo(info);
+                // }
+                // setSwapInfo(info);
                 setLoading(false);
             }, 1000);
         } else {
@@ -141,11 +141,11 @@ function Zapin({ open, handleClose, bond }: IZapinProps) {
 
     useEffect(() => {
         setTimeout(async () => {
-            const { amount } = await calcZapinDetails({ token, provider, networkID: chainID, bond, value: "1", slippage, dispatch });
-            if (amount) {
-                const amountValue = utils.formatEther(amount);
-                setPriceToken(Number(amountValue));
-            }
+            // const { amount } = await calcZapinDetails({ token, provider, networkID: chainID, bond, value: "1", slippage, dispatch });
+            // if (amount) {
+            //     const amountValue = utils.formatEther(amount);
+            //     setPriceToken(Number(amountValue));
+            // }
         }, 500);
     }, [token, slippage]);
 
