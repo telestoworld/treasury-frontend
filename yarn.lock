@@ -2298,16 +2298,10 @@
     "@sentry/types" "6.16.1"
     tslib "^1.9.3"
 
-"@sentry/react@^6.15.0":
-<<<<<<< Updated upstream
-  version "6.16.0"
-  resolved "https://registry.yarnpkg.com/@sentry/react/-/react-6.16.0.tgz#a2f535ae64423e8de17e5517936e806b4957fb27"
-  integrity sha512-ki9P8jI6dt7sX8wmCwxrfkdVrxrYSYMWEfz8QOmJ9EBjGzIMRzIglEvgVNG62mNEvREX8La0OmX8XSFW0VQ66w==
-=======
+"@sentry/react@^6.16.0":
   version "6.16.1"
   resolved "https://registry.yarnpkg.com/@sentry/react/-/react-6.16.1.tgz#d4930c4b23bcd307306a0549d20964d98caed38c"
   integrity sha512-n8fOEKbym4kBi946q3AWXBNy1UKTmABj/hE2nAJbTWhi5IwdM7WBG6QCT2yq7oTHLuTxQrAwgKQc+A6zFTyVHg==
->>>>>>> Stashed changes
   dependencies:
     "@sentry/browser" "6.16.1"
     "@sentry/minimal" "6.16.1"
