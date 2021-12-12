@@ -3,12 +3,19 @@
     width: 100vw;
     display: flex;
     flex-direction: column;
-    background: #121415;
-
+    
+    background: rgb(245,111,173);
+    background: linear-gradient(90deg, rgba(245,111,173,1) 0%, rgba(181,255,217,1) 35%, rgba(29,185,195,1) 100%);
+    background-image: url("../../assets/images/nicefindwally.png");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    
     .cubes-top {
         opacity: 0.6;
         position: absolute;
-        top: -120px;
+        top: 0px;
+        repeat: no-repeat;
 
         p {
             font-family: Courier;

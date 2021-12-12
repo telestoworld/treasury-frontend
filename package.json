@@ -75,7 +75,11 @@
     "build": "GENERATE_SOURCEMAP=false react-scripts build",
     "build-dos": "set \"GENERATE_SOURCEMAP=false\" && react-scripts build",
     "eject": "react-scripts eject",
+<<<<<<< Updated upstream
     "start": "react-scripts start",
+=======
+    "start": "react-scripts start ",
+>>>>>>> Stashed changes
     "update": "yarn add ethers --latest",
     "test": "react-scripts test",
     "lint": "npx eslint src/ --ext .ts,.js,.tsx,.jsx",

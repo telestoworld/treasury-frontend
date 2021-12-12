@@ -19,7 +19,7 @@ export default function Social() {
                 <SvgIcon viewBox="0 0 32 32" color="primary" component={Telegram} />
             </Link> */}
 
-            <Link href="https://discord.gg/g5STyAkCGA" target="_blank">
+            <Link href="https://discord.gg/telestodao" target="_blank">
                 <SvgIcon color="primary" component={Discord} />
             </Link>
         </div>

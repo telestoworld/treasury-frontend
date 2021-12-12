@@ -19,28 +19,26 @@ export const cubesImage = `
 
 
 
-
-
-                         *                                                            *
-                         aaaaaaaaaaaaaaaa               *
-                     aaaaaaaaaaaaaaaaaaaaaaaa
-                  aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                aaaaaaaaaaaaaaaaa           aaaaaa
-              aaaaaaaaaaaaaaaa                  aaaa
-             aaaaaaaaaaaaa aa                      aa
-*               aaaaaaaa      aa                         a
-            aaaaaaa aa aaaa
-      *    aaaaaaaaa     aaa
-           aaaaaaaaaaa aaaaaaa                               *
-           aaaaaaa    aaaaaaaaaa
-           aaaaaa a aaaaaa aaaaaa
-            aaaaaaa  aaaaaaa
-            aaaaaaaa                                 a
-             aaaaaaaaaa                            aa
-              aaaaaaaaaaaaaaaa                  aaaa
-                aaaaaaaaaaaaaaaaa           aaaaaa        *
-  *               aaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-                     aaaaaaaaaaaaaaaaaaaaaaaa
-                  *      aaaaaaaaaaaaaaaa
-
-                         `;
+------               _____
+/      \ ___\     ___/    ___
+--/-  ___  /    \/  /  /    /   \
+/     /           \__     //_     \
+/                     \   / ___     |
+|           ___       \/+--/        /
+\__           \       \           /
+\__                 |          /
+\     /____      /  /       |   /
+_____/         ___       \/  /\
+    \__      /      /    |    |
+  /    \____/   \       /   //
+// / / // / /\    /-_-/\//-__-
+/  /  // /   \__// / / /  //
+//   / /   //   /  // / // /
+/// // / /   /  //  / //
+//   //       //  /  // / /
+/ / / / /     /  /    /
+///  / / /  //  // /  // //
+///    /    /    / / / /
+///  /    // / /  // / / /  /
+// ///   /      /// / /
+/        /    // ///  /`;

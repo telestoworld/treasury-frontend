@@ -5,8 +5,8 @@ import { Hidden, makeStyles, useMediaQuery } from "@material-ui/core";
 import { DRAWER_WIDTH, TRANSITION_DURATION } from "../../constants/style";
 import MobileDrawer from "../Drawer/mobile-drawer";
 import Drawer from "../Drawer";
-import { cubesImage } from "src/constants/img";
 import Messages from "../Messages";
+import Daco from "../../assets/images/Daco.png";
 
 interface IViewBaseProps {
     children: React.ReactNode;
@@ -65,12 +65,12 @@ function ViewBase({ children }: IViewBaseProps) {
             <div className={`${classes.content} ${isSmallerScreen && classes.contentShift}`}>
                 {!isSmallerScreen && (
                     <div className="cubes-top">
-                        <p>{cubesImage}</p>
+                        <img src={Daco} alt="floating pixel city" />
                     </div>
                 )}
                 {!isSmallScreen && (
                     <div className="cubes-bottom">
-                        <p>{cubesImage}</p>
+                        <img src={Daco} alt="floating pixel city" />
                     </div>
                 )}
                 {children}
