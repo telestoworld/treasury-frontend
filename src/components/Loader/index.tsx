@@ -3,6 +3,9 @@ import CircularProgress from "@material-ui/core/CircularProgress";
 import "./loader.scss";
 import Globe_loader from "../../assets/icons/Globe_loader.mp4";
 
+
+
+
 function Loader() {
     return (
         <div className="loader-wrap">
@@ -13,6 +16,7 @@ function Loader() {
                 muted 
                 src={Globe_loader} 
             />
+            
         </div>
     );
 }
