@@ -4,7 +4,7 @@
     display: flex;
     flex-direction: column;
     background: #121415;
-    background-image: url(../../assets/icons/nicefindwally.png);
+    background-image: url(../../assets/icons/mtbg01.jpg);
     background-repeat: no repeat;
     background-size: cover;
     color: #000;
@@ -14,6 +14,7 @@
         position: absolute;
         top: -120px;
         background-repeat: no repeat;
+        background-size: cover;
 
         p {
             font-family: Courier;
