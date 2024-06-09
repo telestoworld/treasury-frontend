@@ -13,6 +13,9 @@ import "./drawer-content.scss";
 import DocsIcon from "../../../assets/icons/stake.svg";
 import BrowserIcon from "../../../assets/icons/browser.png";
 import classnames from "classnames";
+import telosimple from "../../../assets/tokens/telosimple.png";
+
+
 
 function NavContent() {
     const [isActive] = useState();
@@ -37,7 +40,7 @@ function NavContent() {
         <div className="dapp-sidebar">
             <div className="branding-header">
                 <Link href="https://telesto.finance" target="_blank">
-                    <img alt="" src={""} />
+                    <img src={telosimple} alt="TELO" height="120px" />
                 </Link>
 
                 {address && (
@@ -110,8 +113,10 @@ function NavContent() {
                         ))}
                     </div>
                 </div>
+                
             </div>
             <div className="dapp-menu-doc-link">
+            
                 <Link href="https://telesto.gitbook.io/treasury/" target="_blank">
                     <img alt="" src={DocsIcon} />
                     <p>Docs</p>

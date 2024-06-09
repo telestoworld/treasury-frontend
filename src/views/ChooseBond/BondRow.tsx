@@ -116,6 +116,7 @@ export function BondTableData({ bond }: IBondProps) {
                     </div>
                 </Link>
             </TableCell>
+            
         </TableRow>
     );
 }

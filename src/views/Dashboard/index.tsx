@@ -39,6 +39,7 @@ function Dashboard() {
                                         }).format(app.marketCap)
                                     )}
                                 </p>
+                                
                             </div>
                         </Grid>
 
